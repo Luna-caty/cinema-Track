@@ -9,7 +9,7 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movies = \App\Models\Movie::all();
+        $movies = Movie::all();
         return view('movies', compact('movies'));
     }
     public function create()
@@ -20,22 +20,30 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'description' => 'nullable',
             'genre' => 'nullable',
-            'year' => 'nullable|integer',
+            'year' => 'nullable|integer|min:1900|max:2025',
             'image' => 'nullable|image|max:2048'
+        ], [
+            'year.min' => 'L\'année doit être supérieure ou égale à 1900',
+            'year.max' => 'L\'année doit être inférieure ou égale à 2025'
         ]);
 
-        if ($request->hasFile('image')) {
-            $filename = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $filename);
-            $data['image'] = $filename;
+
+        try {
+            if ($request->hasFile('image')) {
+                $filename = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('images'), $filename);
+                $data['image'] = $filename;
+            }
+
+            Movie::create($data);
+
+            return redirect()->route('movies')->with('success', 'Film ajouté avec succès !');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erreur lors de l\'ajout du film !');
         }
-
-        Movie::create($data);
-
-        return redirect()->route('movies')->with('success', 'Film ajouté avec succès !');
     }
     public function destroy($id)
     {
@@ -52,12 +60,17 @@ class MovieController extends Controller
 
     public function update(Request $request, $id)
     {
+        // we call that validation rules we can have any validation rule we want 
+
         $data = $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'description' => 'nullable',
             'genre' => 'nullable',
-            'year' => 'nullable|integer',
+            'year' => 'nullable|integer|min:1900|max:2025',
             'image' => 'nullable|image|max:2048'
+        ], [
+            'year.min' => 'L\'année doit être supérieure ou égale à 1900',
+            'year.max' => 'L\'année doit être inférieure ou égale à 2025'
         ]);
 
         $movie = Movie::findOrFail($id);
