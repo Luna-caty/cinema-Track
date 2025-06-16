@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    movies page
+    series page
 </body>
 </html>
