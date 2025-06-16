@@ -1,0 +1,172 @@
+/* Conteneur principal */
+.movies-container {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* En-tête */
+.header-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-section h1 {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* Barre de recherche */
+.search-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+.search-input {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    width: 250px;
+    background: #1e1e1e;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.search-btn {
+    padding: 0.5rem 1rem;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-btn:hover {
+    background: #c82333;
+}
+
+/* Filtres de genres */
+.genre-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+.genre-btn {
+    padding: 6px 14px;
+    background: #222;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 0.9rem;
+}
+
+.genre-btn.active,
+.genre-btn:hover {
+    background: #dc3545;
+}
+
+/* Grille de films */
+.movies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.movie-card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 200px; /* taille fixe mais adaptable */
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.2);
+}
+
+.movie-poster {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.movie-info {
+    padding: 0.75rem;
+}
+
+.movie-title {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-meta {
+    font-size: 0.8rem;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.movie-genre {
+    font-size: 0.75rem;
+    color: #dc3545;
+    margin-bottom: 0.5rem;
+}
+
+.movie-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-watchlist,
+.btn-details {
+    flex: 1;
+    padding: 6px;
+    font-size: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-watchlist {
+    background: #333;
+    color: #fff;
+}
+
+.btn-details {
+    background: #dc3545;
+    color: #fff;
+}
+
+.btn-watchlist:hover {
+    background: #444;
+}
+
+.btn-details:hover {
+    background: #c82333;
+}
+
+.no-movies {
+    text-align: center;
+    color: #ccc;
+    font-size: 1.2rem;
+    padding: 4rem 0;
+}
