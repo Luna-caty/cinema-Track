@@ -50,12 +50,12 @@ class MovieController extends Controller
         $movie = Movie::findOrFail($id);
         $movie->delete();
 
-        return redirect()->route('home')->with('success', 'Film supprimé avec succès !');
+        return redirect()->route('admin')->with('success', 'Film supprimé avec succès !');
     }
     public function edit($id)
     {
         $movie = Movie::findOrFail($id);
-        return view('edit', compact('home'));
+        return view('edit', compact('movie'));
     }
 
     public function update(Request $request, $id)
@@ -83,6 +83,11 @@ class MovieController extends Controller
 
         $movie->update($data);
 
-        return redirect()->route('home')->with('success', 'Film mis à jour avec succès !');
+        return redirect()->route('admin')->with('success', 'Film mis à jour avec succès !');
+    }
+    public function adminIndex()
+    {
+        $movies = Movie::all();
+        return view('admin', compact('movies'));
     }
 }

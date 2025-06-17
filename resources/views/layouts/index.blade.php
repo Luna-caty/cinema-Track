@@ -17,22 +17,33 @@
             <a class="navbar-brand" href="{{ route('home') }}">🎬 Gestion Films</a>
 
             <div class="navbar-links">
+                @auth
+                @if (Auth::user()->role === 'admin')
+                <a href="{{ route('create') }}" class="nav-link">➕ Ajouter un film</a>
+                @else
                 <a href="{{ route('home') }}" class="nav-link">Accueil</a>
                 <a href="{{ route('series') }}" class="nav-link">Séries</a>
                 <a href="{{ route('movies') }}" class="nav-link">Films</a>
                 <a href="{{ route('animes') }}" class="nav-link">Animés</a>
                 <a href="{{ route('about') }}" class="nav-link">À propos</a>
+                @endif
+                @endauth
             </div>
+
             @guest
             <a href="{{ route('login') }}" class="nav-link">Connexion</a>
             <a href="{{ route('register') }}" class="nav-link">Créer un compte</a>
             @endguest
             @auth
+            @if (Auth::user()->role === 'admin')
+            <a href="{{ route('admin') }}" class="nav-link">Dashboard Admin</a>
+            @endif
             <span class="nav-link">👤 {{ Auth::user()->name }}</span>
             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                 @csrf
                 <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer;">Déconnexion</button>
             </form>
+
             @endauth
         </div>
 

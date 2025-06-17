@@ -37,4 +37,8 @@ Route::get('/animes', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin', [MovieController::class, 'adminIndex'])->name('admin');
+});
 require __DIR__.'/auth.php';
