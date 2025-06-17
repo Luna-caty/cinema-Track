@@ -10,7 +10,7 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::all();
-        return view('movies', compact('movies'));
+        return view('home', compact('movies'));
     }
     public function create()
     {
@@ -40,7 +40,7 @@ class MovieController extends Controller
 
             Movie::create($data);
 
-            return redirect()->route('movies')->with('success', 'Film ajouté avec succès !');
+            return redirect()->route('home')->with('success', 'Film ajouté avec succès !');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erreur lors de l\'ajout du film !');
         }
@@ -50,12 +50,12 @@ class MovieController extends Controller
         $movie = Movie::findOrFail($id);
         $movie->delete();
 
-        return redirect()->route('movies')->with('success', 'Film supprimé avec succès !');
+        return redirect()->route('home')->with('success', 'Film supprimé avec succès !');
     }
     public function edit($id)
     {
         $movie = Movie::findOrFail($id);
-        return view('edit', compact('movie'));
+        return view('edit', compact('home'));
     }
 
     public function update(Request $request, $id)
@@ -83,6 +83,6 @@ class MovieController extends Controller
 
         $movie->update($data);
 
-        return redirect()->route('movies')->with('success', 'Film mis à jour avec succès !');
+        return redirect()->route('home')->with('success', 'Film mis à jour avec succès !');
     }
 }
