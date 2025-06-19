@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\RedirectResponse;
+
 
 class LoginRequest extends FormRequest
 {
@@ -80,6 +82,20 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
+    }
+    public function store(): RedirectResponse
+    {
+        $this->authenticate(); 
+
+        $this->session()->regenerate(); 
+
+        
+        $user = Auth::user();
+        if ($user && $user->role === 'admin') {
+            return redirect()->route('admin'); 
+        }
+
+        return redirect()->route('home'); 
     }
 }

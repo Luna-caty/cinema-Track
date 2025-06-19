@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="fr">
+@extends('layouts.index')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter un film</title>
-    <link rel="stylesheet" href="{{ asset('css/create.css') }}">
-</head>
+@section('title', 'Le Clap-Ajouter un film')
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/create.css') }}">
+@endpush
+@section('content')
+<h1>Ajouter un nouveau film</h1>
 
-<body>
-    @extends('layouts.index')
-    @section('content')
-    <h1>Ajouter un nouveau film </h1>
-
-
+<div class="form-container">
     <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -36,17 +31,19 @@
             <p>{{ $errors->first('year') }}</p>
         </div>
         @endif
-
         <input type="number" name="year" id="year">
+        <label for='type'>Type :</label>
+        <select name="type" id="type">
+            <option value="" disabled selected hidden>Choisissez un type</option>
+            <option value="movie">Film</option>
+            <option value="series">Série</option>
+            <option value="anime">Animé</option>
+        </select>
 
         <label for="image">Image :</label>
         <input type="file" name="image" id="image" accept="image/*">
 
-        <button type="submit">Enregistrer</button>
+        <button type="submit" class="form-submit-btn">Enregistrer</button>
     </form>
-    </div>
-    @endsection
-
-</body>
-
-</html>
+</div>
+@endsection

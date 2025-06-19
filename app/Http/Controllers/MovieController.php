@@ -24,7 +24,8 @@ class MovieController extends Controller
             'description' => 'nullable',
             'genre' => 'nullable',
             'year' => 'nullable|integer|min:1900|max:2025',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'nullable|image|max:2048',
+            'type' => 'nullable|in:movie,series,anime'
         ], [
             'year.min' => 'L\'année doit être supérieure ou égale à 1900',
             'year.max' => 'L\'année doit être inférieure ou égale à 2025'
@@ -67,11 +68,14 @@ class MovieController extends Controller
             'description' => 'nullable',
             'genre' => 'nullable',
             'year' => 'nullable|integer|min:1900|max:2025',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'nullable|image|max:2048',
+            'type' => 'nullable|in:movie,series,anime'
+
         ], [
             'year.min' => 'L\'année doit être supérieure ou égale à 1900',
             'year.max' => 'L\'année doit être inférieure ou égale à 2025'
         ]);
+
 
         $movie = Movie::findOrFail($id);
 
@@ -89,5 +93,10 @@ class MovieController extends Controller
     {
         $movies = Movie::all();
         return view('admin', compact('movies'));
+    }
+    public function show($id)
+    {
+        $movie = Movie::findOrFail($id);
+        return view('movie-details', compact('movie'));
     }
 }

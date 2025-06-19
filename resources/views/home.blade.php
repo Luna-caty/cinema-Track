@@ -1,26 +1,18 @@
 @extends('layouts.index')
 
-@section('title', 'Accueil des films')
-
+@section('title', 'Le Clap')
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+@endpush
 @section('content')
 <div class="movies-container">
     <div class="header-section">
-        <h1>Découvrez les films <span class="cinema-icon">🎬</span></h1>
+        <h3>Découvrez les films <span class="cinema-icon">🎬</span></h3>
         <div class="search-container">
             <input type="text" placeholder="Rechercher un film..." class="search-input">
             <button class="search-btn">🔍</button>
         </div>
     </div>
-
-    {{-- <div class="genre-filter">
-        <button class="genre-btn active">Tous</button>
-        <button class="genre-btn">Action</button>
-        <button class="genre-btn">Aventure</button>
-        <button class="genre-btn">Drame</button>
-        <button class="genre-btn">Comédie</button>
-        <button class="genre-btn">Horreur</button>
-    </div> --}}
-
     @if ($movies->count())
     <div class="movies-grid">
         @foreach ($movies as $movie)
@@ -31,13 +23,11 @@
             <div class="movie-info">
                 <h3 class="movie-title">{{ $movie->title }}</h3>
                 <div class="movie-meta">
-                    <span>⭐ {{ $movie->rating ?? 'N/A' }}</span>
                     <span>{{ $movie->year }}</span>
                 </div>
                 <p class="movie-genre">{{ $movie->genre }}</p>
                 <div class="movie-actions">
-                    <button class="btn-watchlist">+ Watchlist</button>
-                    <button class="btn-details">Détails</button>
+                    <a href="{{ route('show', $movie->id) }}" class="btn-details"> Voir Détails</a>
                 </div>
             </div>
         </div>

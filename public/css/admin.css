@@ -1,0 +1,81 @@
+.admin-table {
+    overflow-x: auto;
+    margin-top: 2rem;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #1b1b1b;
+}
+
+.admin-table table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.admin-table thead {
+    background-color: #dc3545;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.admin-thumbnail {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Container pour les actions - remplace .admin-actions */
+.btn-action {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-action form {
+    display: inline;
+    margin: 0;
+}
+
+.no-img {
+    color: #888;
+    font-style: italic;
+}
+
+.btn-modify,
+.btn-delete {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-modify {
+    background: #007bff;
+}
+
+.btn-modify:hover {
+    background: #0056b3;
+}
+
+.btn-delete {
+    background: #dc3545;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+

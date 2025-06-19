@@ -1,31 +1,11 @@
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/general.css') }}">
-</head>
-
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#">🎬 Admin Panel</a>
-            <div class="navbar-links">
-                <a href="{{ route('create') }}" class="nav-link">➕ Ajouter un film</a>
-            
-                <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                    @csrf
-                    <button type="submit" class="nav-link" style="background:none; border:none;">Déconnexion</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
+@extends('layouts.index')
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+@endpush
+@section('title', 'Le Clap - Espace Admin')
+@section('content')
     <div class="container">
-        <h1 class="page-title">🎛️ Tableau de bord - Administrateur</h1>
 
         @if ($movies->count())
         <div class="admin-table">
@@ -52,12 +32,12 @@
                         <td>{{ $movie->title }}</td>
                         <td>{{ $movie->genre }}</td>
                         <td>{{ $movie->year }}</td>
-                        <td class="admin-actions">
-                            <a href="{{ route('edit', $movie->id) }}" class="btn-watchlist">✏️ Modifier</a>
+                        <td class="btn-action">
+                            <a href="{{ route('edit', $movie->id) }}" class="btn-modify ">✏️ Modifier</a>
                             <form action="{{ route('destroy', $movie->id) }}" method="POST" onsubmit="return confirm('Supprimer ce film ?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn-details">🗑 Supprimer</button>
+                                <button type="submit" class="btn-delete ">🗑 Supprimer</button>
                             </form>
                         </td>
                     </tr>
@@ -69,6 +49,4 @@
         <p class="no-movies">Aucun film enregistré pour le moment.</p>
         @endif
     </div>
-</body>
-
-</html>
+@endsection
