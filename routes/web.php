@@ -42,6 +42,14 @@ Route::get('/animes', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+Route::get('/admin/login', function () {
+    return view('auth.adminLogin');
+})->name('admin.login');
+
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin', [MovieController::class, 'adminIndex'])->name('admin'); 
+});
+
 
 require __DIR__.'/auth.php';
 

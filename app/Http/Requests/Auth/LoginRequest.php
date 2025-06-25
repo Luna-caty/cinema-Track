@@ -39,20 +39,15 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    protected function authenticate(): void
     {
-        $this->ensureIsNotRateLimited();
-
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
+        if (! $this->guard()->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
-
-        RateLimiter::clear($this->throttleKey());
     }
+
 
     /**
      * Ensure the login request is not rate limited.
@@ -86,16 +81,16 @@ class LoginRequest extends FormRequest
     }
     public function store(): RedirectResponse
     {
-        $this->authenticate(); 
+        $this->authenticate();
+        $this->session()->regenerate();
 
-        $this->session()->regenerate(); 
+        return redirect()->intended(
+                $this->input('guard') === 'admin' ? '/admin' : route('home')
+        );
+    }
 
-        
-        $user = Auth::user();
-        if ($user && $user->role === 'admin') {
-            return redirect()->route('admin'); 
-        }
-
-        return redirect()->route('home'); 
+    public function guard(): \Illuminate\Contracts\Auth\StatefulGuard
+    {
+        return Auth::guard($this->input('guard', 'web'));
     }
 }
